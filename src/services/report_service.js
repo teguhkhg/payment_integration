@@ -17,7 +17,7 @@ export async function getReportQRIS(req, res) {
     const json = JSON.parse(response.text);
     json.rc === "00"
       ? res.json(json.data)
-      : res.json({ status: json.rc, message: json.rd });
+      : res.json({ code: json.rc, message: json.rd });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -35,7 +35,7 @@ export async function getReportWPI(req, res) {
     const json = JSON.parse(response.text);
     json.rc === "00"
       ? res.json(json.data)
-      : res.json({ status: json.rc, message: json.rd });
+      : res.json({ code: json.rc, message: json.rd });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

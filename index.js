@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 import config from "./config";
+import gateway from "./src/routes/gateway_route";
 import payment from "./src/routes/payment_route";
 
 const app = express();
@@ -9,7 +10,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/payment", payment);
+app.use("/gateway", gateway);
+// app.use("/payment", payment);
 
 app.get("/", (req, res) => {
   res.send(`Node and express running on ${config.serverUrl}`);

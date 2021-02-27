@@ -35,7 +35,7 @@ export async function getToolbar(req, res) {
     const json = JSON.parse(response.text);
     json.rc === "00"
       ? res.json(json.data.products)
-      : res.json({ status: json.rc, message: json.rd });
+      : res.json({ code: json.rc, message: json.rd });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -49,9 +49,11 @@ export async function getToken(req, res) {
 
     const json = JSON.parse(response.text);
     json.rc === "00"
-      ? res.json({ status: json.rc, token: json.data.token })
-      : res.json({ status: json.rc, message: json.rd });
-  } catch (err) {}
+      ? res.json({ code: json.rc, token: json.data.token })
+      : res.json({ code: json.rc, message: json.rd });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 }
 
 export async function getPaymentCode(req, res) {
@@ -67,7 +69,7 @@ export async function getPaymentCode(req, res) {
         const json = JSON.parse(response.text);
         json.rc === "00"
           ? res.json(json.data)
-          : res.json({ status: json.rc, message: json.rd });
+          : res.json({ code: json.rc, message: json.rd });
       } catch (err) {
         res.status(500).json({ message: err.message });
       }
