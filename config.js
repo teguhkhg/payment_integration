@@ -13,4 +13,10 @@ export default {
   get serverUrl() {
     return `http://${this.host}:${this.port}`;
   },
+
+  db_url: env.db_url || "localhost:27017",
+  db_name: env.db_name || "payment",
+  get dbUrl() {
+    return `mongodb://${this.db_url}/${this.db_name}`;
+  },
 };
