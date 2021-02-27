@@ -10,6 +10,7 @@ export const PaymentSchema = new Schema({
   },
   payment_name: {
     type: String,
+    required: true,
   },
   payment_description: {
     type: String,
@@ -25,5 +26,6 @@ export const PaymentSchema = new Schema({
   },
   is_direct: {
     type: Boolean,
+    required: true,
   },
 });
