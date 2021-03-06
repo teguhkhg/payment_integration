@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getStatusQRIS, getStatusWPI } from "../services/status_service";
+import { getStatusQRIS, getStatusWPI } from "../middleware/status_service";
 
 const router = express.Router();
 

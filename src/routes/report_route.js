@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getReportQRIS, getReportWPI } from "../services/report_service";
+import { getReportQRIS, getReportWPI } from "../middleware/report_service";
 
 const router = express.Router();
 

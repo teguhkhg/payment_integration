@@ -4,7 +4,7 @@ import {
   getToken,
   getPaymentCode,
   orderListener,
-} from "../services/gateway_service";
+} from "../middleware/gateway_service";
 import status from "./status_route";
 import report from "./report_route";
 
