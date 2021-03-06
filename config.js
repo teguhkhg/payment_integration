@@ -1,21 +1,24 @@
+import dotenv from "dotenv";
+
+dotenv.config();
 const env = process.env;
 
-export const nodeEnv = env.NODE_ENV || "development";
+export const nodeEnv = env.NODE_ENV;
 
 export default {
-  gateway: env.PAY_URL || "https://sandbox-payment.winpay.id",
-  privateKey1: env.P_KEY1 || "9220fbdeb1d115a4f2e9b2636edc24cc",
-  privateKey2: env.P_KEY2 || "5b74d200096570de0280b9838c7af1ab",
-  merchantKey: env.M_KEY || "c9c64d57f0c606ef06c297f96697cab4",
+  gateway: env.PAY_URL,
+  privateKey1: env.P_KEY1,
+  privateKey2: env.P_KEY2,
+  merchantKey: env.M_KEY,
 
-  port: env.PORT || 8080,
-  host: env.HOST || "0.0.0.0",
+  port: env.PORT,
+  host: env.HOST,
   get serverUrl() {
     return `http://${this.host}:${this.port}`;
   },
 
-  db_url: env.db_url || "localhost:27017",
-  db_name: env.db_name || "payment",
+  db_url: env.DB_URL,
+  db_name: env.DB_NAME,
   get dbUrl() {
     return `mongodb://${this.db_url}/${this.db_name}`;
   },
