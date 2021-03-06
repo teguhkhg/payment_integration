@@ -1,7 +1,6 @@
 import express from "express";
 import {
   getToolbar,
-  getToken,
   getPaymentCode,
   orderListener,
 } from "../middleware/gateway_service";
@@ -11,7 +10,6 @@ import report from "./report_route";
 const router = express.Router();
 
 router.get("/toolbar", getToolbar);
-router.get("/token", getToken);
 router.post("/code/:code", getPaymentCode);
 router.get("/listener", orderListener);
 

@@ -4,8 +4,12 @@ import { PaymentSchema } from "../models/payment_model";
 const Payment = mongoose.model("Payment", PaymentSchema);
 
 export function addPaymentMethod(req, res) {
-  const newPayment = new Payment(req.body);
+  const response = await superagent
+      .get(`${config.gateway}/toolbar`)
+      .auth(privateKey1, privateKey2);
+  const json = JSON.parse(response.text);
 
+  const newPayment = new Payment(req.body);
   newPayment.save((err, payment) => {
     if (err) {
       res.status(500).json({ message: err.message });

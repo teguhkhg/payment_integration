@@ -26,6 +26,23 @@ async function createOrderData(token, json_string) {
   return orderData;
 }
 
+async function getToken() {
+  try {
+    const response = await superagent
+      .get(`${config.gateway}/token`)
+      .auth(privateKey1, privateKey2);
+
+    const json = JSON.parse(response.text);
+    if (json.rc === "00") {
+      return json.data.token;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+}
+
 export async function getToolbar(req, res) {
   try {
     const response = await superagent
@@ -41,25 +58,16 @@ export async function getToolbar(req, res) {
   }
 }
 
-export async function getToken(req, res) {
-  try {
-    const response = await superagent
-      .get(`${config.gateway}/token`)
-      .auth(privateKey1, privateKey2);
-
-    const json = JSON.parse(response.text);
-    json.rc === "00"
-      ? res.json({ code: json.rc, token: json.data.token })
-      : res.json({ code: json.rc, message: json.rd });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-}
-
 export async function getPaymentCode(req, res) {
   const code = req.params.code;
-  const token = req.body.token;
+  const token = await getToken();
+  if (!token) {
+    res
+      .status(500)
+      .json({ message: "Could not get token from payment gateway" });
+  }
   const json_string = JSON.stringify(req.body.json_string);
+
   createOrderData(token, json_string)
     .then(async (order_data) => {
       try {
