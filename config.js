@@ -12,6 +12,7 @@ export default {
   privateKey1: env.P_KEY1,
   privateKey2: env.P_KEY2,
   merchantKey: env.M_KEY,
+  authKey: env.AUTH_KEY,
 
   jwt_secret: env.JWT_SECRET,
   jwt_expired: env.JWT_EXPIRED,

@@ -2,18 +2,14 @@ import superagent from "superagent";
 
 import config from "../../config";
 
-const privateKey1 = config.privateKey1;
-const privateKey2 = config.privateKey2;
+const authKey = config.authKey;
 
 export async function getStatusQRIS(req, res) {
   try {
     const order_id = req.query.order_id;
     const response = await superagent
       .get(`${config.gateway}/transaction/check-qris-transaction`)
-      .set(
-        "Authorization",
-        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
-      )
+      .set("Authorization", `Basic ${authKey}`)
       .query({ order_id });
     const json = JSON.parse(response.text);
     json.rc === "00"
@@ -30,10 +26,7 @@ export async function postStatusQRIS(req, res) {
 
     const response = await superagent
       .post(`${config.gateway}/transaction/check-qris-transaction`)
-      .set(
-        "Authorization",
-        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
-      )
+      .set("Authorization", `Basic ${authKey}`)
       .send({ data });
     const json = JSON.parse(response.text);
     json.rc === "00"
@@ -49,10 +42,7 @@ export async function getStatusWPI(req, res) {
     const id_transaction_inquiry = req.query.id_transaction_inquiry;
     const response = await superagent
       .get(`${config.gateway}/transaction/check-wpi-transaction`)
-      .set(
-        "Authorization",
-        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
-      )
+      .set("Authorization", `Basic ${authKey}`)
       .query({ id_transaction_inquiry });
     const json = JSON.parse(response.text);
     json.rc === "00"
@@ -68,10 +58,7 @@ export async function postStatusWPI(req, res) {
     const data = req.body;
     const response = await superagent
       .post(`${config.gateway}/transaction/check-wpi-transaction`)
-      .set(
-        "Authorization",
-        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
-      )
+      .set("Authorization", `Basic ${authKey}`)
       .send({ data });
     const json = JSON.parse(response.text);
     json.rc === "00"
