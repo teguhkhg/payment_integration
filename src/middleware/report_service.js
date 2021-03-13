@@ -12,8 +12,11 @@ export async function getReportQRIS(req, res) {
     const offset = req.query.offset || 0;
     const response = await superagent
       .get(`${config.gateway}/report/mutasi-qris`)
-      .query({ date, limit, offset })
-      .auth(privateKey1, privateKey2);
+      .set(
+        "Authorization",
+        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
+      )
+      .query({ date, limit, offset });
     const json = JSON.parse(response.text);
     json.rc === "00"
       ? res.json(json.data)
@@ -30,8 +33,11 @@ export async function getReportWPI(req, res) {
     const offset = req.query.offset || 0;
     const response = await superagent
       .get(`${config.gateway}/report/mutasi-wpi`)
-      .query({ date, limit, offset })
-      .auth(privateKey1, privateKey2);
+      .set(
+        "Authorization",
+        "Basic NGQwY2JhNDgyNTY1YTQzODAyODZhODc4NDhmYWM2MDA6MjAwNTYwN2I3YmE3OWQyMTBlZjM4ZDFjMzZiNDMzY2M="
+      )
+      .query({ date, limit, offset });
     const json = JSON.parse(response.text);
     json.rc === "00"
       ? res.json(json.data)
