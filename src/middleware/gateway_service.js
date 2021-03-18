@@ -3,8 +3,7 @@ import crypto from "crypto";
 
 import config from "../../config";
 
-const privateKey1 = config.privateKey1;
-const privateKey2 = config.privateKey2;
+const orderKey = config.orderKey;
 
 async function createOrderData(token, json_string) {
   const encrypt = (message, method, secret, iv) => {
@@ -30,7 +29,8 @@ export async function getToken(req, res) {
   try {
     const response = await superagent
       .get(`${config.gateway}/token`)
-      .auth(privateKey1, privateKey2);
+      .set("Content-Type", "application/x-www-form-urlencoded")
+      .set("Authorization", `Basic ${orderKey}`);
 
     const json = JSON.parse(response.text);
     json.rc === "00"
@@ -45,9 +45,11 @@ export async function getToolbar(req, res) {
   try {
     const response = await superagent
       .get(`${config.gateway}/toolbar`)
-      .auth(privateKey1, privateKey2);
+      .set("Content-Type", "application/x-www-form-urlencoded")
+      .set("Authorization", `Basic ${orderKey}`);
 
     const json = JSON.parse(response.text);
+    console.log(json);
     json.rc === "00"
       ? res.json(json.data.products)
       : res.json({ code: json.rc, message: json.rd });
@@ -66,6 +68,7 @@ export async function postPaymentCode(req, res) {
       try {
         const response = await superagent
           .post(`${config.gateway}/apiv2/${code}`)
+          .set("Authorization", `Basic ${orderKey}`)
           .send(`orderdata=${order_data}`);
         const json = JSON.parse(response.text);
 
